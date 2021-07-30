@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>PCBA Calculator</title>
+
+  <meta name="description" content="Source code generated using layoutit.com" />
+  <meta name="author" content="LayoutIt!" />
+
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="container-fluid" style="margin: 10px">
+    <div class="row">
+      <div class="col-md-12" style="text-align: center">
+        <h3 class="text-center text-primary">
+          Calculate PCBA price estimate by entering values below
+        </h3>
+        <hr />
+        <div class="row justify-content-center">
+          <div class="col-md-6 card" style="margin: 15px">
+            <!-- ==================================== MAIN FORM ============================================= -->
+            <form class="form-horizontal centered needs-validation">
+              <fieldset>
+                <!-- Form Name -->
+                <legend>
+                  You can get an estimate by entering board specifics
+                </legend>
+                <hr />
+                <!-- Text input-->
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-7" style="text-align: right">
+                      <label for="projectName">What is your project name?</label>
+                    </div>
+                    <div class="col-md-5">
+                      <input id="projectName" name="projectName" type="text" placeholder="Inkplate"
+                        class="form-control input-md" onkeyup="update()" required />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-7" style="text-align: right">
+                      <label for="noBoards">
+                        How many boards need to be assemled?
+                      </label>
+                    </div>
+                    <div class="col-md-4">
+                      <input id="noBoards" name="noBoards" type="number" placeholder="999" class="form-control input-md"
+                        onkeyup="update()" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-7" style="text-align: right">
+                      <label for="uniqueComponents">
+                        How many different components are there? <br />
+                        (lines in BOM)
+                      </label>
+                    </div>
+                    <div class="col-md-4">
+                      <input id="uniqueComponents" name="uniqueComponents" type="number" placeholder="999"
+                        class="form-control input-md" onkeyup="update()" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-7" style="text-align: right">
+                      <label for="noComponents">How many components are there in total?</label>
+                    </div>
+                    <div class="col-md-4">
+                      <input id="noComponents" name="noComponents" type="number" placeholder="999"
+                        class="form-control input-md" onkeyup="update()" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="row">
+                    <label class="col-md-7 control-label" for="pnpFile" style="text-align: right">
+                      Do you have a CAD file or Pick and Place file?
+                    </label>
+                    <div class="col-md-3">
+                      <select id="pnpFile" name="pnpFile" class="form-control" onchange="update()">
+                        <option value="0">Yes</option>
+                        <option value="1">No</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="row">
+                    <label class="col-md-7 control-label" for="bothSides" style="text-align: right">
+                      Does your board have components on both sides?
+                    </label>
+                    <div class="col-md-3">
+                      <select id="bothSides" name="bothSides" class="form-control" onchange="update()">
+                        <option value="0">Yes</option>
+                        <option value="1">No</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+              <hr />
+            </form>
+
+            <!-- ================================================================================= -->
+          </div>
+          <div class="col-md-4 card" style="margin: 15px">
+            <!-- ================================ COST ESTIMATION ================================ -->
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <div class="row">
+                    <div class="col-md-6" style="
+                          display: flex;
+                          justify-content: center;
+                          align-content: center;
+                          flex-direction: column;
+                        ">
+                      <legend>COST ESTIMATION</legend>
+                    </div>
+                    <div class="col-md-6 form-group" style="padding-top: 10px">
+                      <div class="row">
+                        <label class="col-md-5 control-label" for="currency" style="text-align: right">
+                          CHANGE CURRENCY
+                        </label>
+                        <div class="col-md-7" style="
+                              display: flex;
+                              justify-content: center;
+                              align-content: center;
+                              flex-direction: column;
+                            ">
+                          <select id="currency" name="currency" class="form-control" onchange="update()">
+                            <option value="0">EUR</option>
+                            <option value="1">USD</option>
+                            <option value="2">HRK</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr style="margin-top: 0px" />
+                  <div class="form-group">
+                    <div class="row">
+                      <label class="col-md-6 control-label" for="lineProgramming" style="text-align: right">
+                        Line programming:
+                      </label>
+                      <div class="col-md-5">
+                        <div style="position: relative">
+                          <!-- CONTAINER -->
+                          <span style="
+                                position: absolute;
+                                left: 5px;
+                                top: 5px;
+                                white-space: nowrap;
+                              ">
+                            <span style="
+                                  text-decoration: line-through;
+                                  text-decoration-color: #007bff;
+                                " id="lineProgrammingCrossed">999,00 $
+                            </span>
+                            <span style="color: #007bff" id="lineProgrammingColor">
+                              0,00 $</span>
+                            <span id="lineProgramming">
+                            </span>
+                          </span>
+                          <input type="text" placeholder="" class="form-control input-md" style="padding-left: 48px"
+                            readonly />
+                        </div>
+                      </div>
+
+                      <small class="form-text text-primary" style="
+                            text-align: end;
+                            width: 100%;
+                            padding-right: 10px;
+                          " id="lineProgrammingVoid">
+                        VOIDED FOR THE FIRST ORDER
+                      </small>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <label class="col-md-6 control-label" for="selectbasic" style="text-align: right">
+                        Line setup:
+                      </label>
+                      <div class="col-md-5">
+                        <div style="position: relative">
+                          <!-- CONTAINER -->
+                          <span style="
+                                position: absolute;
+                                left: 5px;
+                                top: 5px;
+                                white-space: nowrap;
+                              ">
+                            <span style="
+                                  text-decoration: line-through;
+                                  text-decoration-color: #007bff;
+                                " id="lineSetupCrossed">
+                              999,00 $
+                            </span>
+                            <span style="color: #007bff" id="lineSetupColor">
+                              0,00 $</span>
+                            <span id="lineSetup"></span>
+                          </span>
+                          <input id="uniqueComponents" name="uniqueComponents" type="text" placeholder=""
+                            class="form-control input-md" style="padding-left: 48px" readonly />
+                        </div>
+                      </div>
+                      <small class="form-text text-primary" style="
+                            text-align: end;
+                            width: 100%;
+                            padding-right: 10px;
+                          " id="lineSetupVoid">
+                        VOIDED FOR THE FIRST BATCH
+                      </small>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <label class="col-md-6 control-label" for="selectbasic" style="text-align: right">
+                        Assembly cost per piece:
+                      </label>
+                      <div class="col-md-5">
+                        <input id="costPerPiece" name="costPerPiece" type="text" placeholder="999,00 $"
+                          class="form-control input-md" readonly />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="row">
+                      <label class="col-md-6 control-label" for="selectbasic" style="text-align: right">
+                        Total cost for the first batch:
+                      </label>
+                      <div class="col-md-5">
+                        <div style="position: relative">
+                          <!-- CONTAINER -->
+                          <span style="
+                                position: absolute;
+                                left: 5px;
+                                top: 5px;
+                                white-space: nowrap;
+                              ">
+                            <span style="
+                                  text-decoration: line-through;
+                                  text-decoration-color: #007bff;
+                                " id="totalFirstCostCrossed">999,00 $
+                            </span>
+                            <span style="color: #007bff" id="totalFirstCostColor">
+                              0,00 $</span>
+                            <span id="totalFirstCost"></span>
+                          </span>
+                          <input id="uniqueComponents" name="uniqueComponents" type="text" placeholder=""
+                            class="form-control input-md" style="padding-left: 48px" readonly />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group" style="margin-bottom: 5px">
+                    <div class="row">
+                      <label class="col-md-6 control-label" for="selectbasic" style="text-align: right">
+                        Total cost for future batches:
+                      </label>
+                      <div class="col-md-5">
+                        <input id="totalFutureCost" name="totalFutureCost" type="text" placeholder="999,00 $"
+                          class="form-control input-md" readonly />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group" style="margin-bottom: 2px">
+                    <small class="text-muted">Prices do not include VAT.</small>
+                  </div>
+
+                  <hr style="margin-top: 0px" />
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-12" style="margin: auto">
+                        <button class="btn-primary" style="padding: 7px; border-radius: 4px">
+                          REQUEST OFFICIAL QUOTE FOR THIS CALCULATION
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="col-md-2"></div>
+            </div>
+            <!-- ================================================================================= -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="js/scripts.js"></script>
+</body>
+
+</html>
