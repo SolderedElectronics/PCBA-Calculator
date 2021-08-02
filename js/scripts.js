@@ -23,7 +23,7 @@ const feederPlacement = 25 // D104
 const pnpComponents = 0.18 // D105
 const doubleSidedFee = 3 // D108
 
-const email = 'kontakt@e-radionica.com'
+const email = 'pcb@e-radionica.com'
 
 const currency = { HRK: 1.0, EUR: 1 / 7.5, USD: 1 / 6.32 }
 const currencySymbols = { HRK: 'HRK', EUR: '€', USD: '$' }
@@ -241,12 +241,14 @@ const sendEmail = () => {
             'mailto:' +
                 email +
                 '?subject=PCBA Estimate&body=' + //
-                `Project name: ${projectName}\n\n` +
+                `Hello,\n\nthank you for your request to receive a PCBA quote. Your PCB details are as following:\n\n` +
+                `Project name: ${projectName}\n` +
                 `Number of boards: ${noBoards}\n` +
                 `Unique components: ${uniqueComponents}\n` +
                 `Total number of components: ${noComponents}\n` +
                 `PNP or CAD file present: ${pnpFile == '1' ? 'true' : 'false'}\n` +
-                `Both sided: ${bothSides == '1' ? 'true' : 'false'}\n`
+                `Both sided: ${bothSides == '1' ? 'true' : 'false'}\n\n` +
+                `We will provide you with a quote as soon as possible.\n\nBest regards,\nTAVU team\n`
         )
     )
 }
