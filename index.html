@@ -13,9 +13,13 @@
 
   <link href="css/bootstrap.min.css" rel="stylesheet" />
   <link href="css/style.css" rel="stylesheet" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body style="font-family: 'Roboto', sans-serif;">
   <div class="container-fluid" style="margin: 10px">
     <div class="row">
       <div class="col-md-12" style="text-align: center">
@@ -94,6 +98,7 @@
                     </label>
                     <div class="col-md-3">
                       <select id="pnpFile" name="pnpFile" class="form-control" onchange="update()">
+                        <option value=""></option>
                         <option value="0">Yes</option>
                         <option value="1">No</option>
                       </select>
@@ -108,6 +113,7 @@
                     </label>
                     <div class="col-md-3">
                       <select id="bothSides" name="bothSides" class="form-control" onchange="update()">
+                        <option value=""></option>
                         <option value="0">Yes</option>
                         <option value="1">No</option>
                       </select>
@@ -132,12 +138,13 @@
                           align-content: center;
                           flex-direction: column;
                         ">
-                      <legend>COST ESTIMATION</legend>
+                      <legend>Cost Estimation</legend>
                     </div>
                     <div class="col-md-6 form-group" style="padding-top: 10px">
                       <div class="row">
-                        <label class="col-md-5 control-label" for="currency" style="text-align: right">
-                          CHANGE CURRENCY
+                        <label class="col-md-5 control-label" for="currency" style="text-align: right"
+                          onchange="update()">
+                          Change Currency
                         </label>
                         <div class="col-md-7" style="
                               display: flex;
@@ -146,9 +153,9 @@
                               flex-direction: column;
                             ">
                           <select id="currency" name="currency" class="form-control" onchange="update()">
-                            <option value="0">EUR</option>
-                            <option value="1">USD</option>
-                            <option value="2">HRK</option>
+                            <option value="EUR">EUR</option>
+                            <option value="USD">USD</option>
+                            <option value="HRK">HRK</option>
                           </select>
                         </div>
                       </div>
@@ -196,7 +203,7 @@
                   </div>
                   <div class="form-group">
                     <div class="row">
-                      <label class="col-md-6 control-label" for="selectbasic" style="text-align: right">
+                      <label class="col-md-6 control-label" for="uniqueComponents" style="text-align: right">
                         Line setup:
                       </label>
                       <div class="col-md-5">
@@ -233,19 +240,19 @@
                   </div>
                   <div class="form-group">
                     <div class="row">
-                      <label class="col-md-6 control-label" for="selectbasic" style="text-align: right">
+                      <label class="col-md-6 control-label" for="costPerPiece" style="text-align: right">
                         Assembly cost per piece:
                       </label>
                       <div class="col-md-5">
-                        <input id="costPerPiece" name="costPerPiece" type="text" placeholder="999,00 $"
-                          class="form-control input-md" readonly />
+                        <input id="costPerPiece" name="costPerPiece" type="text" class="form-control input-md"
+                          readonly />
                       </div>
                     </div>
                   </div>
 
                   <div class="form-group">
                     <div class="row">
-                      <label class="col-md-6 control-label" for="selectbasic" style="text-align: right">
+                      <label class="col-md-6 control-label" for="uniqueComponents" style="text-align: right">
                         Total cost for the first batch:
                       </label>
                       <div class="col-md-5">
@@ -275,12 +282,12 @@
 
                   <div class="form-group" style="margin-bottom: 5px">
                     <div class="row">
-                      <label class="col-md-6 control-label" for="selectbasic" style="text-align: right">
+                      <label class="col-md-6 control-label" for="totalFutureCost" style="text-align: right">
                         Total cost for future batches:
                       </label>
                       <div class="col-md-5">
-                        <input id="totalFutureCost" name="totalFutureCost" type="text" placeholder="999,00 $"
-                          class="form-control input-md" readonly />
+                        <input id="totalFutureCost" name="totalFutureCost" type="text" class="form-control input-md"
+                          readonly />
                       </div>
                     </div>
                   </div>
@@ -293,8 +300,8 @@
                   <div class="form-group">
                     <div class="row">
                       <div class="col-md-12" style="margin: auto">
-                        <button class="btn-primary" style="padding: 7px; border-radius: 4px">
-                          REQUEST OFFICIAL QUOTE FOR THIS CALCULATION
+                        <button class="btn-primary" style="padding: 7px; border-radius: 4px" onclick="sendEmail()">
+                          Request Official Quote For This Calculation
                         </button>
                       </div>
                     </div>
