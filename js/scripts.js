@@ -46,7 +46,7 @@ const setup = () => {
     document.getElementById('totalFirstCost').innerHTML = ''
     document.getElementById('totalFirstCostColor').innerHTML = ''
     document.getElementById('totalFirstCostCrossed').innerHTML = ''
-    document.getElementById('totalFutureCost').innerHTML = ''
+    document.getElementById('totalFutureCost').value = ''
     document.getElementById('costPerPiece').value = ''
     document.getElementById('pnpFile').value = ''
     document.getElementById('bothSides').value = ''
@@ -174,6 +174,20 @@ const update = () => {
     let totalFutureCost = lineSetup + costPerPiece * noBoards
 
     // ======= DISPLAY =======
+
+    const discount = (a) => {
+        if (a > 100000) return a * 0.8
+        if (a > 40000) return a * 0.85
+        if (a > 13000) return a * 0.9
+        if (a > 5000) return a * 0.95
+        return a
+    }
+
+    lineProgramming = discount(lineProgramming)
+    lineSetup = discount(lineSetup)
+    costPerPiece = discount(costPerPiece)
+    totalFirstCost = discount(totalFirstCost)
+    totalFutureCost = discount(totalFutureCost)
 
     const convert = (a) => (Math.round(a * multiplier * 100) / 100).toFixed(2)
 
