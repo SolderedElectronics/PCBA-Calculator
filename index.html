@@ -13,6 +13,7 @@
 
   <link href="css/bootstrap.min.css" rel="stylesheet" />
   <link href="css/style.css" rel="stylesheet" />
+  <link href="./all.css" rel="stylesheet" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,42 +24,64 @@
   <div class="container-fluid" style="margin: 10px">
     <div class="row">
       <div class="col-md-12" style="text-align: center">
-        <h3 class="text-center text-primary">
+        <h3 class="text-center" style="color: #b8bbba;">
           Calculate PCBA price estimate by entering values below
         </h3>
         <hr />
         <div class="row justify-content-center">
-          <div class="col-md-6 card" style="margin: 15px">
+          <div class="col-md-6 card"
+            style="margin: 15px; background-color: black; border-width: 2px; border-color: #b8bbba;">
             <!-- ==================================== MAIN FORM ============================================= -->
             <form class="form-horizontal centered needs-validation">
               <fieldset>
                 <!-- Form Name -->
-                <legend>
+                <legend style="padding-top: 16px; color: #b8bbba;">
                   You can get an estimate by entering board specifics
                 </legend>
                 <hr />
                 <!-- Text input-->
                 <div class="form-group">
                   <div class="row">
-                    <div class="col-md-7" style="text-align: right">
+                    <div class="col-md-7"
+                      style="text-align: right;display: flex;justify-content: center;align-content: center;flex-direction: column;">
                       <label for="projectName">What is your project name?</label>
                     </div>
                     <div class="col-md-5">
-                      <input id="projectName" name="projectName" type="text" placeholder="Inkplate"
-                        class="form-control input-md" onkeyup="update()" onchange="update()" required />
+                      <input style="background-color: #2a2734; color: #dadada;" id="projectName" name="projectName"
+                        type="text" placeholder="Inkplate" class="form-control input-md" onkeyup="update()"
+                        onchange="update()" required />
                     </div>
                   </div>
                 </div>
 
                 <div class="form-group">
                   <div class="row">
-                    <div class="col-md-7" style="text-align: right">
+                    <div class="col-md-7"
+                      style="text-align: right;display: flex;justify-content: center;align-content: center;flex-direction: column;">
                       <label for="noBoards">
                         How many boards need to be assemled?
                       </label>
                     </div>
                     <div class="col-md-4">
-                      <input id="noBoards" name="noBoards" type="number" placeholder="999" class="form-control input-md"
+                      <input style="background-color: #2a2734; color: #dadada;" id="noBoards" name="noBoards"
+                        type="text" placeholder="999" class="form-control input-md" onkeyup="update()"
+                        onchange="update()" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-7"
+                      style="text-align: right;display: flex;justify-content: center;align-content: center;flex-direction: column;">
+                      <label for="uniqueComponents">
+                        How many different components are there? <br />
+                        (lines in BOM)
+                      </label>
+                    </div>
+                    <div class="col-md-4">
+                      <input style="background-color: #2a2734; color: #dadada;" id="uniqueComponents"
+                        name="uniqueComponents" type="text" placeholder="999" class="form-control input-md"
                         onkeyup="update()" onchange="update()" />
                     </div>
                   </div>
@@ -66,38 +89,27 @@
 
                 <div class="form-group">
                   <div class="row">
-                    <div class="col-md-7" style="text-align: right">
-                      <label for="uniqueComponents">
-                        How many different components are there? <br />
-                        (lines in BOM)
-                      </label>
-                    </div>
-                    <div class="col-md-4">
-                      <input id="uniqueComponents" name="uniqueComponents" type="number" placeholder="999"
-                        class="form-control input-md" onkeyup="update()" onchange="update()" />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-md-7" style="text-align: right">
+                    <div class="col-md-7"
+                      style="text-align: right;display: flex;justify-content: center;align-content: center;flex-direction: column;">
                       <label for="noComponents">How many components are there in total?</label>
                     </div>
                     <div class="col-md-4">
-                      <input id="noComponents" name="noComponents" type="number" placeholder="999"
-                        class="form-control input-md" onkeyup="update()" onchange="update()" />
+                      <input style="background-color: #2a2734; color: #dadada;" id="noComponents" name="noComponents"
+                        type="text" placeholder="999" class="form-control input-md" onkeyup="update()"
+                        onchange="update()" />
                     </div>
                   </div>
                 </div>
 
                 <div class="form-group">
                   <div class="row">
-                    <label class="col-md-7 control-label" for="pnpFile" style="text-align: right">
+                    <label class="col-md-7 control-label" for="pnpFile"
+                      style="text-align: right;display: flex;justify-content: center;align-content: center;flex-direction: column;">
                       Do you have a CAD file or Pick and Place file?
                     </label>
                     <div class="col-md-3">
-                      <select id="pnpFile" name="pnpFile" class="form-control" onchange="update()">
+                      <select style="background-color: #2a2734; color: #dadada;" id="pnpFile" name="pnpFile"
+                        class="form-control" onchange="update()">
                         <option value=""></option>
                         <option value="0">Yes</option>
                         <option value="1">No</option>
@@ -108,11 +120,13 @@
 
                 <div class="form-group">
                   <div class="row">
-                    <label class="col-md-7 control-label" for="bothSides" style="text-align: right">
+                    <label class="col-md-7 control-label" for="bothSides"
+                      style="text-align: right;display: flex;justify-content: center;align-content: center;flex-direction: column;">
                       Does your board have components on both sides?
                     </label>
                     <div class="col-md-3">
-                      <select id="bothSides" name="bothSides" class="form-control" onchange="update()">
+                      <select style="background-color: #2a2734; color: #dadada;" id="bothSides" name="bothSides"
+                        class="form-control" onchange="update()">
                         <option value=""></option>
                         <option value="0">Yes</option>
                         <option value="1">No</option>
@@ -126,7 +140,8 @@
 
             <!-- ================================================================================= -->
           </div>
-          <div class="col-md-4 card" style="margin: 15px">
+          <div class="col-md-4 card"
+            style="margin: 15px; background-color: black; border-width: 2px; border-color: #b8bbba;">
             <!-- ================================ COST ESTIMATION ================================ -->
             <div class="row">
               <div class="col-md-12">
@@ -138,11 +153,12 @@
                           align-content: center;
                           flex-direction: column;
                         ">
-                      <legend>Cost Estimation</legend>
+                      <legend style="color: #b8bbba;">Cost Estimation</legend>
                     </div>
                     <div class="col-md-6 form-group" style="padding-top: 10px">
                       <div class="row">
-                        <label class="col-md-5 control-label" for="currency" style="text-align: right"
+                        <label class="col-md-5 control-label" for="currency"
+                          style="text-align: right;display: flex;justify-content: center;align-content: center;flex-direction: column;"
                           onchange="update()">
                           Change Currency
                         </label>
@@ -152,7 +168,8 @@
                               align-content: center;
                               flex-direction: column;
                             ">
-                          <select id="currency" name="currency" class="form-control" onchange="update()">
+                          <select style="background-color: #2a2734; color: #dadada;" id="currency" name="currency"
+                            class="form-control" onchange="update()">
                             <option value="EUR">EUR</option>
                             <option value="USD">USD</option>
                             <option value="HRK">HRK</option>
@@ -165,7 +182,8 @@
                   <hr style="margin-top: 0px" />
                   <div class="form-group">
                     <div class="row">
-                      <label class="col-md-6 control-label" for="lineProgramming" style="text-align: right">
+                      <label class="col-md-6 control-label" for="lineProgramming"
+                        style="text-align: right;display: flex;justify-content: center;align-content: center;flex-direction: column;">
                         Line programming:
                       </label>
                       <div class="col-md-5">
@@ -173,11 +191,12 @@
                           <!-- CONTAINER -->
                           <span style="
                                 position: absolute;
-                                left: 5px;
-                                top: 5px;
+                                left: 12px;
+                                top: 7px;
                                 white-space: nowrap;
                               ">
                             <span style="
+                                  color: #dadada;
                                   text-decoration: line-through;
                                   text-decoration-color: #007bff;
                                 " id="lineProgrammingCrossed">999,00 $
@@ -187,8 +206,8 @@
                             <span id="lineProgramming">
                             </span>
                           </span>
-                          <input type="text" placeholder="" class="form-control input-md" style="padding-left: 48px"
-                            readonly />
+                          <input style="background-color: #2a2734; color: #dadada;" type="text" placeholder=""
+                            class="form-control input-md" style="padding-left: 48px" readonly />
                         </div>
                       </div>
 
@@ -203,7 +222,8 @@
                   </div>
                   <div class="form-group">
                     <div class="row">
-                      <label class="col-md-6 control-label" for="uniqueComponents" style="text-align: right">
+                      <label class="col-md-6 control-label" for="uniqueComponents"
+                        style="text-align: right;display: flex;justify-content: center;align-content: center;flex-direction: column;">
                         Line setup:
                       </label>
                       <div class="col-md-5">
@@ -211,11 +231,12 @@
                           <!-- CONTAINER -->
                           <span style="
                                 position: absolute;
-                                left: 5px;
-                                top: 5px;
+                                left: 12px;
+                                top: 7px;
                                 white-space: nowrap;
                               ">
                             <span style="
+                                  color: #dadada;
                                   text-decoration: line-through;
                                   text-decoration-color: #007bff;
                                 " id="lineSetupCrossed">
@@ -225,8 +246,9 @@
                               0,00 $</span>
                             <span id="lineSetup"></span>
                           </span>
-                          <input id="uniqueComponents" name="uniqueComponents" type="text" placeholder=""
-                            class="form-control input-md" style="padding-left: 48px" readonly />
+                          <input style="background-color: #2a2734; color: #dadada;" id="uniqueComponents"
+                            name="uniqueComponents" type="text" placeholder="" class="form-control input-md"
+                            style="padding-left: 48px" readonly />
                         </div>
                       </div>
                       <small class="form-text text-primary" style="
@@ -240,19 +262,21 @@
                   </div>
                   <div class="form-group">
                     <div class="row">
-                      <label class="col-md-6 control-label" for="costPerPiece" style="text-align: right">
+                      <label class="col-md-6 control-label" for="costPerPiece"
+                        style="text-align: right;display: flex;justify-content: center;align-content: center;flex-direction: column;">
                         Assembly cost per piece:
                       </label>
                       <div class="col-md-5">
-                        <input id="costPerPiece" name="costPerPiece" type="text" class="form-control input-md"
-                          readonly />
+                        <input style="background-color: #2a2734; color: #dadada;" id="costPerPiece" name="costPerPiece"
+                          type="text" class="form-control input-md" readonly />
                       </div>
                     </div>
                   </div>
 
                   <div class="form-group">
                     <div class="row">
-                      <label class="col-md-6 control-label" for="uniqueComponents" style="text-align: right">
+                      <label class="col-md-6 control-label" for="uniqueComponents"
+                        style="text-align: right;display: flex;justify-content: center;align-content: center;flex-direction: column;">
                         Total cost for the first batch:
                       </label>
                       <div class="col-md-5">
@@ -260,11 +284,12 @@
                           <!-- CONTAINER -->
                           <span style="
                                 position: absolute;
-                                left: 5px;
-                                top: 5px;
+                                left: 12px;
+                                top: 7px;
                                 white-space: nowrap;
                               ">
                             <span style="
+                                  color: #dadada;
                                   text-decoration: line-through;
                                   text-decoration-color: #007bff;
                                 " id="totalFirstCostCrossed">999,00 $
@@ -273,8 +298,9 @@
                               0,00 $</span>
                             <span id="totalFirstCost"></span>
                           </span>
-                          <input id="uniqueComponents" name="uniqueComponents" type="text" placeholder=""
-                            class="form-control input-md" style="padding-left: 48px" readonly />
+                          <input style="background-color: #2a2734; color: #dadada;" id="uniqueComponents"
+                            name="uniqueComponents" type="text" placeholder="" class="form-control input-md"
+                            style="padding-left: 48px" readonly />
                         </div>
                       </div>
                     </div>
@@ -282,12 +308,13 @@
 
                   <div class="form-group" style="margin-bottom: 5px">
                     <div class="row">
-                      <label class="col-md-6 control-label" for="totalFutureCost" style="text-align: right">
+                      <label class="col-md-6 control-label" for="totalFutureCost"
+                        style="text-align: right;display: flex;justify-content: center;align-content: center;flex-direction: column;">
                         Total cost for future batches:
                       </label>
                       <div class="col-md-5">
-                        <input id="totalFutureCost" name="totalFutureCost" type="text" class="form-control input-md"
-                          readonly />
+                        <input style="background-color: #2a2734; color: #dadada;" id="totalFutureCost"
+                          name="totalFutureCost" type="text" class="form-control input-md" readonly />
                       </div>
                     </div>
                   </div>
@@ -300,7 +327,8 @@
                   <div class="form-group">
                     <div class="row">
                       <div class="col-md-12" style="margin: auto">
-                        <button class="btn-primary" style="padding: 7px; border-radius: 4px" onclick="sendEmail()">
+                        <button class="btn-medium-jungle-green" style="padding: 7px; border-radius: 4px"
+                          onclick="sendEmail()">
                           Request Official Quote For This Calculation
                         </button>
                       </div>

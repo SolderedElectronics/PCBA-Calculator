@@ -26,7 +26,7 @@ const doubleSidedFee = 3 // D108
 const email = 'pcb@e-radionica.com'
 
 const currency = { HRK: 1.0, EUR: 1 / 7.5, USD: 1 / 6.32 }
-const currencySymbols = { HRK: 'HRK', EUR: '€', USD: '$' }
+const currencySymbols = { HRK: 'HRK', EUR: 'EUR', USD: 'USD' }
 
 let multiplier = 1.0
 let symbol = '$'
@@ -200,7 +200,7 @@ const update = () => {
     if (firstOrder) {
         _lineProgramming.innerHTML = ''
         _lineProgrammingCrossed.innerHTML = lineProgramming + ' ' + symbol
-        _lineProgrammingColor.innerHTML = '0.0' + ' ' + symbol
+        _lineProgrammingColor.innerHTML = '0.00' + ' ' + symbol
         _lineProgrammingVoid.style.display = 'block'
         _lineProgrammingVoid.innerHTML = 'VOIDED FOR THE FIRST ORDER'
     } else {
@@ -214,7 +214,7 @@ const update = () => {
     if (firstBatch) {
         _lineSetup.innerHTML = ''
         _lineSetupCrossed.innerHTML = lineSetup + ' ' + symbol
-        _lineSetupColor.innerHTML = '0.0' + ' ' + symbol
+        _lineSetupColor.innerHTML = '0.00' + ' ' + symbol
         _lineSetupVoid.style.display = 'block'
         _lineSetupVoid.innerHTML = 'VOIDED FOR THE FIRST ORDER'
     } else {
@@ -228,8 +228,8 @@ const update = () => {
     _costPerPiece.value = costPerPiece + ' ' + symbol
 
     _totalFirstCost.innerHTML = ''
-    _totalFirstCostCrossed.innerHTML = totalFutureCost + ' ' + symbol
-    _totalFirstCostColor.innerHTML = totalFirstCost + ' ' + symbol
+    _totalFirstCostCrossed.innerHTML = totalFirstCost + ' ' + symbol
+    _totalFirstCostColor.innerHTML = totalFutureCost + ' ' + symbol
 
     _totalFutureCost.value = totalFutureCost + ' ' + symbol
 }
@@ -248,7 +248,60 @@ const sendEmail = () => {
     // B12: bothSides
     const bothSides = document.getElementById('bothSides').value
 
-    check(projectName, noBoards, uniqueComponents, noComponents, pnpFile, bothSides)
+    if (!check(projectName, noBoards, uniqueComponents, noComponents, pnpFile, bothSides)) return
+
+    // ======= CALCULATOR =======
+
+    let lineProgramming = 0.0
+    if (pnpFile == '1') {
+        if (bothSides == '1') {
+            lineProgramming = pnpProgWithFileTwoSide
+        } else {
+            lineProgramming = pnpProgWithFileOneSide
+        }
+    } else {
+        if (bothSides == '1') {
+            lineProgramming = pnpProgNoFileTwoSide
+        } else {
+            lineProgramming = pnpProgNoFileOneSide
+        }
+    }
+    lineProgramming += uniqueComponents * progPerBomPiece
+
+    let lineSetup = feederPlacement * uniqueComponents
+
+    let costPerPiece = noComponents * pnpComponents
+    if (bothSides == '1') {
+        costPerPiece += doubleSidedFee
+    }
+
+    let totalFirstCost = lineProgramming + lineSetup + costPerPiece * noBoards
+
+    let totalFutureCost = lineSetup + costPerPiece * noBoards
+
+    // ======= DISPLAY =======
+
+    const discount = (a) => {
+        if (a > 100000) return a * 0.8
+        if (a > 40000) return a * 0.85
+        if (a > 13000) return a * 0.9
+        if (a > 5000) return a * 0.95
+        return a
+    }
+
+    lineProgramming = discount(lineProgramming)
+    lineSetup = discount(lineSetup)
+    costPerPiece = discount(costPerPiece)
+    totalFirstCost = discount(totalFirstCost)
+    totalFutureCost = discount(totalFutureCost)
+
+    const convert = (a) => (Math.round(a * 100) / 100).toFixed(2)
+
+    lineProgramming = convert(lineProgramming)
+    lineSetup = convert(lineSetup)
+    costPerPiece = convert(costPerPiece)
+    totalFirstCost = convert(totalFirstCost)
+    totalFutureCost = convert(totalFutureCost)
 
     window.open(
         encodeURI(
@@ -262,6 +315,12 @@ const sendEmail = () => {
                 `Total number of components: ${noComponents}\n` +
                 `PNP or CAD file present: ${pnpFile == '1' ? 'true' : 'false'}\n` +
                 `Both sided: ${bothSides == '1' ? 'true' : 'false'}\n\n` +
+                `Estimates:\n` +
+                `Line programming: ${lineProgramming} HRK${firstOrder ? ' - discounted to 0.00 HRK' : ''}\n` +
+                `Line setup:  ${lineSetup} HRK\n` +
+                `Assembly cost per piece:  ${costPerPiece} HRK${firstBatch ? ' - discounted to 0.00 HRK' : ''}\n` +
+                `Total cost for the first batch:  ${totalFirstCost} HRK - discounted to ${totalFutureCost} HRK\n` +
+                `Total cost for future batches:  ${totalFutureCost} HRK\n\n` +
                 `We will provide you with a quote as soon as possible.\n\nBest regards,\nTAVU team\n`
         )
     )
